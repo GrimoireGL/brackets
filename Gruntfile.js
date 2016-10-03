@@ -391,29 +391,6 @@ module.exports = function (grunt) {
         'jasmine_node': {
             projectRoot: 'src/extensibility/node/spec/'
         },
-        jshint: {
-            all: [
-                '<%= meta.grunt %>',
-                '<%= meta.src %>',
-                '<%= meta.test %>',
-                '!src/extensions/extra/**',
-                '!src/bramble/thirdparty/**'
-            ],
-            grunt:  '<%= meta.grunt %>',
-            src:    [
-                '<%= meta.src %>',
-                // These modules include lots of third-party code, so we skip them
-                '!src/extensions/default/HTMLHinter/slowparse/**',
-                '!src/extensions/default/HTMLHinter/tooltipsy.source.js',
-                '!src/extensions/extra/**',
-                '!src/bramble/thirdparty/**'
-            ],
-            test:   '<%= meta.test %>',
-            /* use strict options to mimic JSLINT until we migrate to JSHINT in Brackets */
-            options: {
-                jshintrc: '.jshintrc'
-            }
-        },
         shell: {
             repo: grunt.option("shell-repo") || "../brackets-shell",
             mac: "<%= shell.repo %>/installer/mac/staging/<%= pkg.name %>.app",
@@ -574,7 +551,6 @@ module.exports = function (grunt) {
         grunt.task.run([
             // Confirm we're ready to start
             'checkBranch',
-            'jshint:src',
 
             // Update submodules, commit and push to "master"
             'update_submodules:publish',
@@ -611,7 +587,7 @@ module.exports = function (grunt) {
     grunt.registerTask('install', ['write-config', 'less']);
 
     // task: test
-    grunt.registerTask('test', ['jshint:all', 'jasmine']);
+    grunt.registerTask('test', ['jasmine']);
 //    grunt.registerTask('test', ['jshint:all', 'jasmine', 'jasmine_node']);
 
     // task: set-release
@@ -620,7 +596,6 @@ module.exports = function (grunt) {
 
     // task: build
     grunt.registerTask('build', [
-        'jshint:src',
         'clean',
         'less',
         'postcss',
