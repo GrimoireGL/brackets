@@ -1,3 +1,5 @@
+import rr from 'regenerator-runtime';
+window.regeneratorRuntime = rr;
 window.brambleInit = function(Bramble) {
     load(Bramble);
 };
@@ -27,7 +29,7 @@ var tutorial = "<html>\n" +
     "</html>";
 
 var css = "p {\n" +
-    "  color: purple;\n" +
+    "  color: red;\n" +
     "}";
 
 var script = "function add(a, b) {\n" +

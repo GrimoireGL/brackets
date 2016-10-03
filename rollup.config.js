@@ -7,6 +7,8 @@ export default {
   plugins:[
     npm({jsnext:true}),
     cjs(),
-    babel()
+    babel({
+      runtimeHelpers:true
+    })
   ]
 };
